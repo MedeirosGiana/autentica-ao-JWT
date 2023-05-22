@@ -8,8 +8,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-@Entity(name = "usuario")
-@Table(name = "usuario")
+@Entity(name = "usuarios")
+@Table(name = "usuarios")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -26,7 +26,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

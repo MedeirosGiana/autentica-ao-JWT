@@ -10,20 +10,23 @@ import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
-    public  String gerarToken(User user){
+
+    public String gerarToken(User usuario) {
         return JWT.create()
                 .withIssuer("Produtos")
-                .withSubject(user.getUsername())
-                .withClaim("id",user.getId())
+                .withSubject(usuario.getUsername())
+                .withClaim("id", usuario.getId())
                 .withExpiresAt(LocalDateTime.now()
                         .plusMinutes(30)
                         .toInstant(ZoneOffset.of("-03:00"))
                 ).sign(Algorithm.HMAC256("secreta"));
     }
 
-    public String getSubject(String token){
-        return  JWT.require(Algorithm.HMAC256("secreta"))
+
+    public String getSubject(String token) {
+        return JWT.require(Algorithm.HMAC256("secreta"))
                 .withIssuer("Produtos")
                 .build().verify(token).getSubject();
+
     }
 }
